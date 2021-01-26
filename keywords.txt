@@ -1,0 +1,30 @@
+############################################
+# Syntax Coloring Map For FlashStorage_SAMD
+############################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+EEPROMClass KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+write KEYWORD2
+read KEYWORD2
+update KEYWORD2
+get KEYWORD2
+put KEYWORD2
+isValid KEYWORD2
+commit KEYWORD2
+length	KEYWORD2
+setCommitASAP KEYWORD2
+getCommitASAP KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+

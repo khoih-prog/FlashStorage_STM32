@@ -1,0 +1,13 @@
+{
+    "name": "FlashStorage_STM32",
+    "keywords": "storage,data,flash,flashstorage,flash-storage,eeprom,emulated-eeprom",
+    "description": "The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory of STM32F/L/H/G/WB/MP1. It's using the buffered read and write to minimize the access to Flash. It now supports writing and reading the whole object, not just byte-and-byte.",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/khoih-prog/FlashStorage_STM32"
+    },
+    "version": "1.0.0",
+    "frameworks": "arduino",
+    "platforms": "stm32"
+}
