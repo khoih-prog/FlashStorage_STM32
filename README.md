@@ -38,7 +38,7 @@
   * [ 11. **StoreNameAndSurname**](examples/StoreNameAndSurname)
 * [Example StoreNameAndSurname](#example-storenameandsurname)
 * [FAQ](#faq)
-  * [Can I use a single object to store more stuff?](#can-i-use-a-single-flashstorage-object-to-store-more-stuff)
+  * [Can I use a single object to store more stuff?](#can-i-use-a-single-object-to-store-more-stuff)
   * [The content of the FlashStorage is erased each time a new sketch is uploaded?](#the-content-of-the-flashstorage-is-erased-each-time-a-new-sketch-is-uploaded)
   * [Do you recommend to use FLASH instead of EEPROM?](#do-you-recommend-to-use-flash-instead-of-eeprom)
 * [Troubleshooting](#troubleshooting)
@@ -329,14 +329,14 @@ Submit issues to: [FlashStorage_STM32 issues](https://github.com/khoih-prog/Flas
 
 ---
 
-## TO DO
+### TO DO
 
 1. Search for bug and improvement.
 2. Similar features for remaining Arduino boards
 
 ---
 
-## DONE
+### DONE
 
 1. Basic emulated-EEPROM for STM32F/L/H/G/WB/MP1.
 2. Similar features for remaining Arduino boards such as SAMD21, SAMD51, etc.
