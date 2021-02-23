@@ -10,11 +10,12 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
   Licensed under MIT license
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date        Comments
   ------- -----------  ----------   -----------
   1.0.0   K Hoang      26/01/2021  Initial coding to support STM32F/L/H/G/WB/MP1 using emulated-EEPROM
+  1.0.1   K Hoang      23/02/2021  Fix compiler warnings.
  ******************************************************************************************************************************************/
 /***
     eeprom_get example.

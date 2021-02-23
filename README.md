@@ -15,6 +15,7 @@
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
 * [Changelog](#changelog)
+  * [Releases v1.0.1](#releases-v101)
   * [Releases v1.0.0](#releases-v100)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
@@ -36,6 +37,10 @@
   * [  9. **EmulateEEPROM**](examples/EmulateEEPROM)
   * [ 10. **FlashStoreAndRetrieve**](examples/FlashStoreAndRetrieve)
   * [ 11. **StoreNameAndSurname**](examples/StoreNameAndSurname)
+* [Examples from other libraries](#examples-from-other-libraries)
+  * [  1. Library WiFiManager_Generic_Lite](#1-library-wifimanager_generic_lite)
+  * [  2. Library WiFiManager_NINA_Lite](#2-library-wifimanager_nina_lite)
+  * [  3. Library Ethernet_Manager_STM32](#3-library-ethernet_manager_stm32) 
 * [Example StoreNameAndSurname](#example-storenameandsurname)
 * [FAQ](#faq)
   * [Can I use a single object to store more stuff?](#can-i-use-a-single-object-to-store-more-stuff)
@@ -58,7 +63,7 @@
 
 ### Features
 
-The FlashStorage_STM32 library, inspired from [Cristian Maglie's FlashStorage](https://github.com/cmaglie/FlashStorage), provides a convenient way to store and retrieve user's data using emulated-EEPROM, from the non-volatile flash memory of STM32F/L/H/G/WB/MP1.
+The FlashStorage_STM32 library, inspired by [Cristian Maglie's FlashStorage](https://github.com/cmaglie/FlashStorage), provides a convenient way to store and retrieve user's data using emulated-EEPROM, from the non-volatile flash memory of STM32F/L/H/G/WB/MP1.
 
 The flash memory, generally used to store the firmware code, can also be used to store / retrieve more user's data and faster than from EEPROM. Thanks to the **buffered data writing and reading**, the flash access time is greatly reduced to **increase the life of the flash**.
 
@@ -86,6 +91,10 @@ The flash memory, generally used to store the firmware code, can also be used to
 
 ## Changelog
 
+### Releases v1.0.1
+
+1. Fix compiler warnings.
+
 ### Releases v1.0.0
 
 1. Initial release to support STM32F/L/H/G/WB/MP1 board with / without integrated EEPROM
@@ -97,7 +106,7 @@ The flash memory, generally used to store the firmware code, can also be used to
 ## Prerequisites
 
  1. [`Arduino IDE 1.8.13+` for Arduino](https://www.arduino.cc/en/Main/Software)
- 2. [`Arduino Core for STM32 1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 (Use Arduino Board Manager)
+ 2. [`Arduino Core for STM32 v1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 
 ---
 
@@ -169,6 +178,28 @@ The API is very similar to the well known Arduino EEPROM.h API but with 4 additi
  9. [EmulateEEPROM](examples/EmulateEEPROM)
 10. [FlashStoreAndRetrieve](examples/FlashStoreAndRetrieve)
 11. [StoreNameAndSurname](examples/StoreNameAndSurname)
+
+
+### Examples from other libraries
+
+### 1. Library [WiFiManager_Generic_Lite](https://github.com/khoih-prog/WiFiManager_Generic_Lite)
+
+ 1. [STM32_WiFi](https://github.com/khoih-prog/WiFiManager_Generic_Lite/tree/main/examples/STM32_WiFi)
+ 2. [STM32_WiFi_MQTT](https://github.com/khoih-prog/WiFiManager_Generic_Lite/tree/main/examples/STM32_WiFi_MQTT)
+ 
+### 2. Library [WiFiManager_NINA_Lite](https://github.com/khoih-prog/WiFiManager_NINA_Lite)
+
+ 1. [STM32_WiFiNINA](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/main/examples/STM32_WiFiNINA)
+ 2. [STM32_WiFiNINA_MQTT](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/main/examples/STM32_WiFiNINA_MQTT)
+ 
+### 3. Library [Ethernet_Manager_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32)
+
+ 1. [AM2315_Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/AM2315_Ethernet_STM32)
+ 2. [DHT11_Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/DHT11_Ethernet_STM32)
+ 3. [Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/Ethernet_STM32)
+ 4. [MQTT_ThingStream_Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/MQTT_ThingStream_Ethernet_STM32)
+ 
+and mamy more to come.
 
 ---
 ---
@@ -297,6 +328,10 @@ Sometimes, the library will only work if you update the board core to the latest
 
 ## Releases
 
+### Releases v1.0.1
+
+1. Fix compiler warnings.
+
 ### Releases v1.0.0
 
 1. Initial release to support STM32F/L/H/G/WB/MP1 board with / without integrated EEPROM
@@ -377,5 +412,5 @@ If you want to contribute to this project:
 
 ### Copyright
 
-Copyright 2020- Khoi Hoang
+Copyright 2021- Khoi Hoang
 

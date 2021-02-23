@@ -1,28 +1,27 @@
-/*
-  EEPROM like API that uses Arduino Zero's flash memory.
-  Written by A. Christian
+/******************************************************************************************************************************************
+  FlashStorage_STM32.h
+  For STM32 using Flash emulated-EEPROM
 
-  Copyright (c) 2015-2016 Arduino LLC.  All right reserved.
+  The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory
+  of STM32F/L/H/G/WB/MP1. It's using the buffered read and write to minimize the access to Flash.
+  It now supports writing and reading the whole object, not just byte-and-byte.
 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
+  Inspired by Cristian Maglie's FlashStorage (https://github.com/cmaglie/FlashStorage)
 
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU Lesser General Public License for more details.
+  Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
+  Licensed under MIT license
+  Version: 1.0.1
 
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+  Version Modified By   Date        Comments
+  ------- -----------  ----------   -----------
+  1.0.0   K Hoang      26/01/2021  Initial coding to support STM32F/L/H/G/WB/MP1 using emulated-EEPROM
+  1.0.1   K Hoang      23/02/2021  Fix compiler warnings.
+ ******************************************************************************************************************************************/
 
 #pragma once
 
-#ifndef FlashAsEEPROM_STM32_h
-#define FlashAsEEPROM_STM32_h
+#ifndef FlashStorage_STM32_h
+#define FlashStorage_STM32_h
 
 #if !( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
@@ -30,7 +29,7 @@
   #error This code is intended to run on STM32 platform! Please check your Tools->Board setting.  
 #endif
 
-#define FLASH_STORAGE_STM32_VERSION     "FlashStorage_STM32 v1.0.0"
+#define FLASH_STORAGE_STM32_VERSION     "FlashStorage_STM32 v1.0.1"
 
 // Only use this with emulated EEPROM, without integrated EEPROM
 #if !defined(DATA_EEPROM_BASE)
@@ -134,7 +133,7 @@
         }
              
         return t;
-    }
+      }
 
       /**
        * Check whether the eeprom data is valid
@@ -178,10 +177,10 @@
         _initialized = true;
       }
 
-      bool _initialized;
-      bool _validEEPROM;     
+      bool _initialized;     
       bool _dirtyBuffer;
       bool _commitASAP;
+      bool _validEEPROM;
   };
   
   EEPROMClass EEPROM;
