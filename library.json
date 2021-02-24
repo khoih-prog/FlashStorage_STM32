@@ -1,7 +1,7 @@
 {
     "name": "FlashStorage_STM32",
     "version": "1.0.1",
-    "keywords": "storage, data, flash, flashstorage, flash-storage, eeprom, emulated-eeprom, emulation, stm32, st32f, stm32l, stm32h, stm32g, stm32wb, stm32mp1,ST STM32, bluepill, blackpill, nucleo",
+    "keywords": "storage, data, flash, flashstorage, flash-storage, eeprom, emulated-eeprom, emulation, stm32, stm32f, stm32l, stm32h, stm32g, stm32wb, stm32mp1,ST STM32, bluepill, blackpill, nucleo",
     "description": "The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory of STM32F/L/H/G/WB/MP1. It's using the buffered read and write to minimize the access to Flash. It now supports writing and reading the whole object, not just byte-and-byte.",
     "repository":
     {
