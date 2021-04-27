@@ -15,6 +15,7 @@
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
 * [Changelog](#changelog)
+  * [Major Releases v1.1.0](#major-releases-v110)
   * [Releases v1.0.1](#releases-v101)
   * [Releases v1.0.0](#releases-v100)
 * [Prerequisites](#prerequisites)
@@ -22,6 +23,9 @@
   * [Use Arduino Library Manager](#use-arduino-library-manager)
   * [Manual Install](#manual-install)
   * [VS Code & PlatformIO](#vs-code--platformio)
+* [Packages' Patches](#packages-patches)
+  * [1. For STM32 boards to use LAN8720](#1-for-stm32-boards-to-use-lan8720)
+  * [2. For STM32 boards to use Serial1](#2-for-stm32-boards-to-use-serial1)
 * [Limited number of writes](#limited-number-of-writes)
 * [Usage](#usage)
   * [Using the alternative EEPROM-like API](#using-the-alternative-eeprom-like-api)
@@ -40,8 +44,14 @@
 * [Examples from other libraries](#examples-from-other-libraries)
   * [  1. Library WiFiManager_Generic_Lite](#1-library-wifimanager_generic_lite)
   * [  2. Library WiFiManager_NINA_Lite](#2-library-wifimanager_nina_lite)
-  * [  3. Library Ethernet_Manager_STM32](#3-library-ethernet_manager_stm32) 
+  * [  3. Library Ethernet_Manager_STM32](#3-library-ethernet_manager_stm32)
+  * [  4. Library ESP_AT_WM_Lite](#4-library-esp_at_wm_lite) 
+  * [  5. Library BlynkEthernet_STM32_WM](#5-library-blynkethernet_stm32_wm) 
 * [Example StoreNameAndSurname](#example-storenameandsurname)
+* [Debug Terminal Output Samples](#debug-terminal-output-samples)
+  * [1. Ethernet_STM32_LAN8720 on BLACK_F407VE using LAN8720 Ethernet and STM32Ethernet Library](#1-ethernet_stm32_lan8720-on-black_f407ve-using-lan8720-ethernet-and-stm32ethernet-library)
+    * [1.1. DoubleReset Detected => Enter Config Portal](#11-doublereset-detected--enter-config-portal)
+    * [1.2. Config Data Saved => Running normally](#12-config-data-saved--running-normally)
 * [FAQ](#faq)
   * [Can I use a single object to store more stuff?](#can-i-use-a-single-object-to-store-more-stuff)
   * [The content of the FlashStorage is erased each time a new sketch is uploaded?](#the-content-of-the-flashstorage-is-erased-each-time-a-new-sketch-is-uploaded)
@@ -67,6 +77,10 @@ The FlashStorage_STM32 library, inspired by [Cristian Maglie's FlashStorage](htt
 
 The flash memory, generally used to store the firmware code, can also be used to store / retrieve more user's data and faster than from EEPROM. Thanks to the **buffered data writing and reading**, the flash access time is greatly reduced to **increase the life of the flash**.
 
+Currently, the library supports both new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0) and previous [**STM32 core v1.9.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
+
+---
+
 ### Currently supported Boards
 
 1. **STM32F/L/H/G/WB/MP1 boards with / without integrated EEPROM**
@@ -76,7 +90,7 @@ The flash memory, generally used to store the firmware code, can also be used to
 - Nucleo-32
 - Discovery
 - Generic STM32F0, STM32F1, STM32F2, STM32F3, STM32F4, STM32F7
-- STM32L0, STM32L1, STM32L4
+- STM32L0, STM32L1, STM32L4, **STM32L5**
 - STM32G0, STM32G4
 - STM32H7
 - STM32WB
@@ -90,6 +104,11 @@ The flash memory, generally used to store the firmware code, can also be used to
 ---
 
 ## Changelog
+
+### Major Releases v1.1.0
+
+1. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
+2. Add support to new STM32 L5 and many new STM32F/L/H/G/WB/MP1 boards
 
 ### Releases v1.0.1
 
@@ -106,7 +125,7 @@ The flash memory, generally used to store the firmware code, can also be used to
 ## Prerequisites
 
  1. [`Arduino IDE 1.8.13+` for Arduino](https://www.arduino.cc/en/Main/Software)
- 2. [`Arduino Core for STM32 v1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for **STM32F/L/H/G/WB/MP1** boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
+ 2. [`Arduino Core for STM32 v2.0.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 
 ---
 
@@ -133,6 +152,50 @@ Another way to install is to:
 3. Install [**FlashStorage_STM32** library](https://platformio.org/lib/show/11728/FlashStorage_STM32) by using [Library Manager](https://platformio.org/lib/show/11728/FlashStorage_STM32/installation). Search for **FlashStorage_STM32** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
+
+---
+---
+
+### Packages' Patches
+
+#### 1. For STM32 boards to use LAN8720
+
+Already updated and tested with latest **STM32 core v2.0.0**
+
+To use LAN8720 on some STM32 boards 
+
+- **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG)**
+- **Discovery (DISCO_F746NG)**
+- **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+
+you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system) to overwrite the old files.
+
+Supposing the STM32 stm32 core version is 2.0.0. These files must be copied into the directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/2.0.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.o.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
+theses files must be copied into the corresponding directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx/stm32f4xx_hal_conf_default.h`
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx/stm32f7xx_hal_conf_default.h
+
+
+#### 2. For STM32 boards to use Serial1
+
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/1.9.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/1.9.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+
+Supposing the STM32 stm32 core version is 1.9.0. These files must be copied into the directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
+theses files must be copied into the corresponding directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_F767ZI/variant.h`
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_L053R8/variant.h`
 
 ---
 ---
@@ -179,6 +242,7 @@ The API is very similar to the well known Arduino EEPROM.h API but with 4 additi
 10. [FlashStoreAndRetrieve](examples/FlashStoreAndRetrieve)
 11. [StoreNameAndSurname](examples/StoreNameAndSurname)
 
+---
 
 ### Examples from other libraries
 
@@ -199,7 +263,22 @@ The API is very similar to the well known Arduino EEPROM.h API but with 4 additi
  3. [Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/Ethernet_STM32)
  4. [MQTT_ThingStream_Ethernet_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/MQTT_ThingStream_Ethernet_STM32)
  
-and mamy more to come.
+### 4. Library [ESP_AT_WM_Lite](https://github.com/khoih-prog/ESP_AT_WM_Lite)
+
+ 1. [STM32_ESP8266Shield](https://github.com/khoih-prog/ESP_AT_WM_Lite/tree/master/examples/STM32_ESP8266Shield)
+ 
+### 5. Library [BlynkEthernet_STM32_WM](https://github.com/khoih-prog/BlynkEthernet_STM32_WM)
+
+ 1. [BI_Ethernet_Blynk](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/BI_Ethernet_Blynk)
+ 2. [BI_Ethernet_Blynk_Email](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/BI_Ethernet_Blynk_Email)
+ 3. [BI_Ethernet_WM_Config](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/BI_Ethernet_WM_Config)
+ 4. [LAN8720_Ethernet_Blynk](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/LAN8720_Ethernet_Blynk)
+ 5. [LAN8720_Ethernet_Blynk_Email](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/LAN8720_Ethernet_Blynk_Email)
+ 6. [LAN8720_Ethernet_WM_Config](https://github.com/khoih-prog/BlynkEthernet_STM32_WM/tree/master/examples/LAN8720_Ethernet_WM_Config)
+ 
+     ......
+ 
+and many more to libraries come.
 
 ---
 ---
@@ -297,6 +376,127 @@ void loop()
 ---
 ---
 
+### Debug Terminal Output Samples
+
+### 1. Ethernet_STM32_LAN8720 on BLACK_F407VE using LAN8720 Ethernet and STM32Ethernet Library
+
+The following is the sample terminal output when running example [Ethernet_STM32_LAN8720](examples/Ethernet_STM32_LAN8720) on STM32F4 BLACK_F407VE with LAN8720 Ethernet using STM32Ethernet Library.
+
+#### 1.1 DoubleReset Detected => Enter Config Portal
+
+```
+Start Ethernet_STM32_LAN8720 on BLACK_F407VE
+Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
+Ethernet_Manager_STM32 v1.3.0
+DoubleResetDetector_Generic v1.0.3
+
+EEPROM size = 16384, start = 0
+Flag read = 0xd0d04321
+No doubleResetDetected
+SetFlag write = 0xd0d01234
+[ETM] EEPROMsz:4096
+[ETM] EEPROM Length():16384
+[ETM] CCSum=0xaed,RCSum=0x4d385471
+[ETM] ChkCrR:CrCCsum=0x21dd,CrRCsum=0x3338
+[ETM] InitCfgFile,sz=60
+[ETM] SaveEEPROM,Sz=16384,DataSz=0,WCSum=0x569
+[ETM] CrCCSum=0xc30
+[ETM] Start connectEthernet using DHCP
+[ETM] MAC:FE-98-FC-DD-D9-BA
+[ETM] Dynamic IP OK, connected
+[ETM] IP:192.168.2.169
+[ETM] bg: isForcedConfigPortal = false
+[ETM] bg:Stay forever in CP:No ConfigDat
+Connected! IP address: 192.168.2.169
+
+Your stored Credentials :
+MQTT Server = blank
+Port = blank
+MQTT UserName = blank
+MQTT PWD = blank
+Subs Topics = blank
+Pubs Topics = blank
+HStop doubleResetDetecting
+ClearFlag write = 0xd0d04321
+HHHHH[ETM] h:Updating EEPROM. Please wait for reset
+[ETM] SaveEEPROM,Sz=16384,DataSz=0,WCSum=0x729
+[ETM] CrCCSum=0x1087
+[ETM] h:Rst
+```
+
+---
+
+#### 1.2 Config Data Saved => Running normally
+
+```
+Start Ethernet_STM32_LAN8720 on BLACK_F407VE
+Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
+Ethernet_Manager_STM32 v1.3.0
+DoubleResetDetector_Generic v1.0.3
+
+EEPROM size = 16384, start = 0
+Flag read = 0xd0d04321
+No doubleResetDetected
+SetFlag write = 0xd0d01234
+[ETM] EEPROMsz:4096
+[ETM] EEPROM Length():16384
+[ETM] CCSum=0x729,RCSum=0x729
+[ETM] ChkCrR:CrCCsum=0x1087,CrRCsum=0x1087
+[ETM] CrCCSum=1087,CrRCSum=1087
+[ETM] Valid Stored Dynamic Data
+[ETM] ======= Start Stored Config Data =======
+[ETM] Header=STM32, BoardName=Black_V407VE
+[ETM] StaticIP=blank
+[ETM] Start connectEthernet using DHCP
+[ETM] MAC:FE-98-FD-D6-DA-BA
+[ETM] Dynamic IP OK, connected
+[ETM] IP:192.168.2.170
+[ETM] begin:Ethernet Connected.
+Connected! IP address: 192.168.2.170
+
+Your stored Credentials :
+MQTT Server = mqtt_server
+Port = 1883
+MQTT UserName = mqtt_user
+MQTT PWD = mqtt_pass
+Subs Topics = Subs
+Pubs Topics = Pubs
+HStop doubleResetDetecting
+ClearFlag write = 0xd0d04321
+HSetFlag write = 0xd0d01234
+[ETM] EEPROMsz:4096
+[ETM] EEPROM Length():16384
+[ETM] CCSum=0x729,RCSum=0x729
+[ETM] ChkCrR:CrCCsum=0x1087,CrRCsum=0x1087
+[ETM] CrCCSum=1087,CrRCSum=1087
+[ETM] Valid Stored Dynamic Data
+[ETM] ======= Start Stored Config Data =======
+[ETM] Header=STM32, BoardName=Black_V407VE
+[ETM] StaticIP=blank
+[ETM] Start connectEthernet using DHCP
+[ETM] MAC:FE-98-FD-D6-DB-BA
+[ETM] Dynamic IP OK, connected
+[ETM] IP:192.168.2.149
+[ETM] begin:Ethernet Connected.
+Connected! IP address: 192.168.2.149
+
+Your stored Credentials :
+MQTT Server = mqtt_server
+Port = 1883
+MQTT UserName = mqtt_user
+MQTT PWD = mqtt_pass
+Subs Topics = Subs
+Pubs Topics = Pubs
+HStop doubleResetDetecting
+ClearFlag write = 0xd0d04321
+HHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH
+HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH
+HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH
+HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH H
+```
+
+---
+---
 
 ## FAQ
 
@@ -328,6 +528,11 @@ Sometimes, the library will only work if you update the board core to the latest
 
 ## Releases
 
+### Major Releases v1.1.0
+
+1. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
+2. Add support to new **STM32L5** and many new STM32F/L/H/G/WB/MP1 boards
+
 ### Releases v1.0.1
 
 1. Fix compiler warnings.
@@ -345,7 +550,7 @@ Sometimes, the library will only work if you update the board core to the latest
 - Nucleo-32
 - Discovery
 - Generic STM32F0, STM32F1, STM32F2, STM32F3, STM32F4, STM32F7
-- STM32L0, STM32L1, STM32L4
+- STM32L0, STM32L1, STM32L4, **STM32L5**
 - STM32G0, STM32G4
 - STM32H7
 - STM32WB
@@ -374,8 +579,10 @@ Submit issues to: [FlashStorage_STM32 issues](https://github.com/khoih-prog/Flas
 ### DONE
 
 1. Basic emulated-EEPROM for STM32F/L/H/G/WB/MP1.
-2. Similar features for remaining Arduino boards such as SAMD21, SAMD51, etc.
-3. Add Table of Contents
+2. Add support to new [**STM32 core v1.9.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
+3. Similar features for remaining Arduino boards such as SAMD21, SAMD51, etc.
+4. Add Table of Contents
+5. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
 
 ---
 ---

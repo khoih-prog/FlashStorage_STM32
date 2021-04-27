@@ -10,29 +10,32 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
   Licensed under MIT license
-  Version: 1.0.1
+  Version: 1.1.0
 
   Version Modified By   Date        Comments
   ------- -----------  ----------   -----------
   1.0.0   K Hoang      26/01/2021  Initial coding to support STM32F/L/H/G/WB/MP1 using emulated-EEPROM
   1.0.1   K Hoang      23/02/2021  Fix compiler warnings.
- ******************************************************************************************************************************************/
+  1.1.0   K Hoang      26/04/2021  Add support to new STM32 core v2.0.0 and new STM32L5 boards.
+  ******************************************************************************************************************************************/
 
 #pragma once
 
 #ifndef FlashStorage_STM32_h
 #define FlashStorage_STM32_h
 
-#if !( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
-       defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
-       defined(STM32WB) || defined(STM32MP1) )
-  #error This code is intended to run on STM32 platform! Please check your Tools->Board setting.  
+#if !( defined(STM32F0) || defined(STM32F1)  || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
+       defined(STM32L0) || defined(STM32L1)  || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
+       defined(STM32WB) || defined(STM32MP1) || defined(STM32L5) )
+  #error This code is intended to run on STM32F/L/H/G/WB/MP1 platform! Please check your Tools->Board setting.  
 #endif
 
-#define FLASH_STORAGE_STM32_VERSION     "FlashStorage_STM32 v1.0.1"
+#define FLASH_STORAGE_STM32_VERSION     "FlashStorage_STM32 v1.1.0"
 
 // Only use this with emulated EEPROM, without integrated EEPROM
 #if !defined(DATA_EEPROM_BASE)
+
+#include "utility/stm32_eeprom.h"
 
   class EEPROMClass
   {

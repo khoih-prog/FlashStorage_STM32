@@ -12,6 +12,10 @@ EEPROMClass KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+########################
+## FlashStorage_STM32.h
+########################
+
 write KEYWORD2
 read KEYWORD2
 update KEYWORD2
@@ -23,8 +27,23 @@ length	KEYWORD2
 setCommitASAP KEYWORD2
 getCommitASAP KEYWORD2
 
+########################
+## stm32_eeprom.h/hpp
+########################
+
+eeprom_read_byte  KEYWORD2
+eeprom_write_byte KEYWORD2
+eeprom_buffer_fill  KEYWORD2
+eeprom_buffer_flush KEYWORD2
+eeprom_buffered_read_byte KEYWORD2
+eeprom_buffered_write_byte  KEYWORD2
+
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+EEPROM_RETRAM_MODE_SIZE LITERAL1
+E2END LITERAL1
+FLASH_PAGE_SIZE LITERAL1
 
 
