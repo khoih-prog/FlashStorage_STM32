@@ -428,6 +428,11 @@ HHHHH[ETM] h:Updating EEPROM. Please wait for reset
 
 #### 1.2 Config Data Saved => Running normally
 
+<p align="center">
+    <img src="https://github.com/khoih-prog/FlashStorage_STM32/blob/main/pics/ConfigPortal.png">
+</p>
+
+
 ```
 Start Ethernet_STM32_LAN8720 on BLACK_F407VE
 Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
