@@ -380,7 +380,7 @@ void loop()
 
 ### 1. Ethernet_STM32_LAN8720 on BLACK_F407VE using LAN8720 Ethernet and STM32Ethernet Library
 
-The following is the sample terminal output when running example [Ethernet_STM32_LAN8720](examples/Ethernet_STM32_LAN8720) on STM32F4 BLACK_F407VE with LAN8720 Ethernet using STM32Ethernet Library.
+The following is the sample terminal output when running example [Ethernet_STM32_LAN8720](https://github.com/khoih-prog/Ethernet_Manager_STM32/tree/main/examples/Ethernet_STM32_LAN8720) on STM32F4 BLACK_F407VE with LAN8720 Ethernet using STM32Ethernet Library.
 
 #### 1.1 DoubleReset Detected => Enter Config Portal
 
