@@ -253,8 +253,8 @@ The API is very similar to the well known Arduino EEPROM.h API but with 4 additi
  
 ### 2. Library [WiFiManager_NINA_Lite](https://github.com/khoih-prog/WiFiManager_NINA_Lite)
 
- 1. [STM32_WiFiNINA](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/main/examples/STM32_WiFiNINA)
- 2. [STM32_WiFiNINA_MQTT](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/main/examples/STM32_WiFiNINA_MQTT)
+ 1. [STM32_WiFiNINA](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/master/examples/STM32_WiFiNINA)
+ 2. [STM32_WiFiNINA_MQTT](https://github.com/khoih-prog/WiFiManager_NINA_Lite/tree/master/examples/STM32_WiFiNINA_MQTT)
  
 ### 3. Library [Ethernet_Manager_STM32](https://github.com/khoih-prog/Ethernet_Manager_STM32)
 
