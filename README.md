@@ -52,6 +52,15 @@
   * [1. Ethernet_STM32_LAN8720 on BLACK_F407VE using LAN8720 Ethernet and STM32Ethernet Library](#1-ethernet_stm32_lan8720-on-black_f407ve-using-lan8720-ethernet-and-stm32ethernet-library)
     * [1.1. DoubleReset Detected => Enter Config Portal](#11-doublereset-detected--enter-config-portal)
     * [1.2. Config Data Saved => Running normally](#12-config-data-saved--running-normally)
+  * [2. StoreNameAndSurname on NUCLEO_H743ZI2 with 16KB emulated-EEPROM](#2-storenameandsurname-on-nucleo_h743zi2-with-16KB-emulated-eeprom)
+    * [2.1. First Start](#21-first-start)
+    * [2.2. After reset](#22-after-reset)
+  * [3. StoreNameAndSurname on NUCLEO_L552ZE_Q with 2KB emulated-EEPROM](#3-storenameandsurname-on-nucleo_l552ze_q-with-2KB-emulated-eeprom)
+    * [3.1. First Start](#31-first-start)
+    * [3.2. After reset](#32-after-reset)
+  * [4. StoreNameAndSurname on NUCLEO_F767ZI with 16KB emulated-EEPROM](#4-storenameandsurname-on-nucleo_f767zi-with-16KB-emulated-eeprom)
+    * [4.1. First Start](#41-first-start)
+    * [4.2. After reset](#42-after-reset) 
 * [FAQ](#faq)
   * [Can I use a single object to store more stuff?](#can-i-use-a-single-object-to-store-more-stuff)
   * [The content of the FlashStorage is erased each time a new sketch is uploaded?](#the-content-of-the-flashstorage-is-erased-each-time-a-new-sketch-is-uploaded)
@@ -499,6 +508,112 @@ HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHH
 HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH
 HHHHHHHHHH HHHHHHHHHH HHHHHHHHHH H
 ```
+
+---
+
+### 2. StoreNameAndSurname on NUCLEO_H743ZI2 with 16KB emulated-EEPROM
+
+The following is the sample terminal output when running example [StoreNameAndSurname](examples/StoreNameAndSurname) on STM32H7 Nucleo-144 NUCLEO_H743ZI2
+
+#### 2.1 First Start
+
+```
+Start StoreNameAndSurname on NUCLEO_H743ZI2
+FlashStorage_STM32 v1.1.0
+EEPROM length: 16384
+EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
+Insert your name : My_Name
+
+Insert your surname : My_Surname
+
+<< Your name: My_Name
+. Your surname: My_Surname
+ >> have been saved. Thank you!
+```
+
+#### 2.2 After reset
+
+```
+Start StoreNameAndSurname on NUCLEO_H743ZI2
+FlashStorage_STM32 v1.1.0
+EEPROM length: 16384
+Hi My_Name
+ My_Surname
+, nice to see you again :-)
+Clearing WRITTEN_SIGNATURE for next try
+Done clearing signature in emulated EEPROM. You can reset now
+```
+
+---
+
+### 3. StoreNameAndSurname on NUCLEO_L552ZE_Q with 2KB emulated-EEPROM
+
+The following is the sample terminal output when running example [StoreNameAndSurname](examples/StoreNameAndSurname) on STM32L5 Nucleo-144 NUCLEO_L552ZE_Q
+
+#### 3.1 First Start
+
+```
+Start StoreNameAndSurname on NUCLEO_L552ZE_Q
+FlashStorage_STM32 v1.1.0
+EEPROM length: 2048
+EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
+Insert your name : My_Name
+
+Insert your surname : My_Surname
+
+<< Your name: My_Name
+. Your surname: My_Surname
+ >> have been saved. Thank you!
+```
+
+#### 3.2 After reset
+
+```
+Start StoreNameAndSurname on NUCLEO_L552ZE_Q
+FlashStorage_STM32 v1.1.0
+EEPROM length: 2048
+Hi My_Name
+ My_Surname
+, nice to see you again :-)
+Clearing WRITTEN_SIGNATURE for next try
+Done clearing signature in emulated EEPROM. You can reset now
+```
+
+---
+
+### 4. StoreNameAndSurname on NUCLEO_F767ZI with 16KB emulated-EEPROM
+
+The following is the sample terminal output when running example [StoreNameAndSurname](examples/StoreNameAndSurname) on STM32F7 Nucleo-144 NUCLEO_F767ZI
+
+#### 4.1 First Start
+
+```
+Start StoreNameAndSurname on NUCLEO_F767ZI
+FlashStorage_STM32 v1.1.0
+EEPROM length: 16384
+EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
+Insert your name : My_Name
+
+Insert your surname : My_Surname
+
+<< Your name: My_Name
+. Your surname: My_Surname
+ >> have been saved. Thank you!
+```
+
+#### 4.2 After reset
+
+```
+Start StoreNameAndSurname on NUCLEO_F767ZI
+FlashStorage_STM32 v1.1.0
+EEPROM length: 16384
+Hi My_Name
+ My_Surname
+, nice to see you again :-)
+Clearing WRITTEN_SIGNATURE for next try
+Done clearing signature in emulated EEPROM. You can reset now
+```
+
 
 ---
 ---
