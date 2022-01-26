@@ -10,13 +10,6 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
   Licensed under MIT license
-  Version: 1.1.0
-
-  Version Modified By   Date        Comments
-  ------- -----------  ----------   -----------
-  1.0.0   K Hoang      26/01/2021  Initial coding to support STM32F/L/H/G/WB/MP1 using emulated-EEPROM
-  1.0.1   K Hoang      23/02/2021  Fix compiler warnings.
-  1.1.0   K Hoang      26/04/2021  Add support to new STM32 core v2.0.0 and new STM32L5 boards.
  ******************************************************************************************************************************************/
 /***
    EEPROM Update method
@@ -31,6 +24,7 @@
    Released using MIT licence.
  ***/
 
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include <FlashStorage_STM32.h>
 
 /** the current address in the EEPROM (i.e. which byte we're going to write to next) **/
@@ -43,7 +37,7 @@ void setup()
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_read on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_update on ")); Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -53,12 +47,12 @@ void setup()
 void loop()
 {
   unsigned long startMillis = millis();
-  
-  for (int i = 0 ; i < EEPROM.length() ; i++) 
+
+  for (int i = 0 ; i < EEPROM.length() ; i++)
   {
     /***
       The function EEPROM.update(address, val) is equivalent to the following:
-  
+
       if( EEPROM.read(address) != val )
       {
         EEPROM.write(address, val);
@@ -66,7 +60,7 @@ void loop()
     ***/
     EEPROM.update(i, (uint8_t) analogRead(0));
   }
-  
+
   EEPROM.commit();
 
   Serial.print("Done updating emulated EEPROM. Time spent (ms) = "); Serial.println(millis() - startMillis);

@@ -1,5 +1,6 @@
-/******************************************************************************************************************************************
-  StoreNameAndSurname.ino
+/****************************************************************************************************************************
+  multiFileProject.cpp
+  
   For STM32 using Flash emulated-EEPROM
 
   The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory
@@ -9,35 +10,14 @@
   Inspired by Cristian Maglie's FlashStorage (https://github.com/cmaglie/FlashStorage)
 
   Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
-  Licensed under MIT license
- ******************************************************************************************************************************************/
+*****************************************************************************************************************************/
 
-// Demonstrate how to use FlashStorage_STM32 with an API that is similar to the EEPROM library to Store and retrieve structured data.
+// To demo how to include files in multi-file Projects
 
-// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include <FlashStorage_STM32.h>
+#include "multiFileProject.h"
 
-const int WRITTEN_SIGNATURE = 0xBEEFDEED;
-
-// Create a structure that is big enough to contain a name
-// and a surname. The "valid" variable is set to "true" once
-// the structure is filled with actual data for the first time.
-typedef struct
+void testEEPROM()
 {
-  char name[100];
-  char surname[100];
-} Person;
-
-void setup()
-{
-  Serial.begin(115200);
-  while (!Serial);
-
-  delay(200);
-
-  Serial.print(F("\nStart StoreNameAndSurname on ")); Serial.println(BOARD_NAME);
-  Serial.println(FLASH_STORAGE_STM32_VERSION);
-
   Serial.print("EEPROM length: ");
   Serial.println(EEPROM.length());
 
@@ -86,14 +66,16 @@ void setup()
     // ...and finally save everything into emulated-EEPROM
     EEPROM.put(storedAddress + sizeof(signature), owner);
 
+    if (!EEPROM.getCommitASAP())
+    {
+      Serial.println("CommitASAP not set. Need commit()");
+      EEPROM.commit();
+    }
+
     // Print a confirmation of the data inserted.
     Serial.print("<< Your name: "); Serial.print(owner.name);
     Serial.print(". Your surname: "); Serial.print(owner.surname);
     Serial.println(" >> have been saved. Thank you!");
+    Serial.println("You can reset to check emulated-EEPROM data retention.");
   }
-}
-
-void loop()
-{
-  // Do nothing...
 }

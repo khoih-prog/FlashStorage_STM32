@@ -11,13 +11,11 @@
 
 ## Table of Contents
 
+* [Important Change from v1.2.0](#Important-Change-from-v120)
 * [Why do we need this FlashStorage_STM32 library](#why-do-we-need-this-FlashStorage_STM32-library)
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
-* [Changelog](#changelog)
-  * [Major Releases v1.1.0](#major-releases-v110)
-  * [Releases v1.0.1](#releases-v101)
-  * [Releases v1.0.0](#releases-v100)
+* [Changelog](changelog.md)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
   * [Use Arduino Library Manager](#use-arduino-library-manager)
@@ -26,6 +24,7 @@
 * [Packages' Patches](#packages-patches)
   * [1. For STM32 boards to use LAN8720](#1-for-stm32-boards-to-use-lan8720)
   * [2. For STM32 boards to use Serial1](#2-for-stm32-boards-to-use-serial1)
+* [HOWTO Fix `Multiple Definitions` Linker Error](#howto-fix-multiple-definitions-linker-error)
 * [Limited number of writes](#limited-number-of-writes)
 * [Usage](#usage)
   * [Using the alternative EEPROM-like API](#using-the-alternative-eeprom-like-api)
@@ -41,6 +40,7 @@
   * [  9. **EmulateEEPROM**](examples/EmulateEEPROM)
   * [ 10. **FlashStoreAndRetrieve**](examples/FlashStoreAndRetrieve)
   * [ 11. **StoreNameAndSurname**](examples/StoreNameAndSurname)
+  * [ 12. **multiFileProject**](examples/multiFileProject) **New** 
 * [Examples from other libraries](#examples-from-other-libraries)
   * [  1. Library WiFiManager_Generic_Lite](#1-library-wifimanager_generic_lite)
   * [  2. Library WiFiManager_NINA_Lite](#2-library-wifimanager_nina_lite)
@@ -66,7 +66,6 @@
   * [The content of the FlashStorage is erased each time a new sketch is uploaded?](#the-content-of-the-flashstorage-is-erased-each-time-a-new-sketch-is-uploaded)
   * [Do you recommend to use FLASH instead of EEPROM?](#do-you-recommend-to-use-flash-instead-of-eeprom)
 * [Troubleshooting](#troubleshooting)
-* [Releases](#releases)
 * [Issues](#issues)
 * [TO DO](#to-do)
 * [DONE](#done)
@@ -74,6 +73,13 @@
 * [Contributing](#contributing)
 * [License](#license)
 * [Copyright](#copyright)
+
+---
+---
+
+### Important Change from v1.2.0
+
+Please have a look at [HOWTO Fix `Multiple Definitions` Linker Error](#howto-fix-multiple-definitions-linker-error)
 
 ---
 ---
@@ -86,7 +92,7 @@ The FlashStorage_STM32 library, inspired by [Cristian Maglie's FlashStorage](htt
 
 The flash memory, generally used to store the firmware code, can also be used to store / retrieve more user's data and faster than from EEPROM. Thanks to the **buffered data writing and reading**, the flash access time is greatly reduced to **increase the life of the flash**.
 
-Currently, the library supports both new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0) and previous [**STM32 core v1.9.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
+Currently, the library supports both new [**STM32 core v2.0.0+**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.2.0) and previous [**STM32 core v1.9.0-**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
 
 ---
 
@@ -112,29 +118,10 @@ Currently, the library supports both new [**STM32 core v2.0.0**](https://github.
 ---
 ---
 
-## Changelog
-
-### Major Releases v1.1.0
-
-1. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
-2. Add support to new STM32 L5 and many new STM32F/L/H/G/WB/MP1 boards
-
-### Releases v1.0.1
-
-1. Fix compiler warnings.
-
-### Releases v1.0.0
-
-1. Initial release to support STM32F/L/H/G/WB/MP1 board with / without integrated EEPROM
-
-
----
----
-
 ## Prerequisites
 
- 1. [`Arduino IDE 1.8.15+` for Arduino](https://www.arduino.cc/en/Main/Software)
- 2. [`Arduino Core for STM32 v2.0.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
+ 1. [`Arduino IDE 1.8.19+` for Arduino](https://www.arduino.cc/en/Main/Software)
+ 2. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 
 ---
 
@@ -169,7 +156,7 @@ Another way to install is to:
 
 #### 1. For STM32 boards to use LAN8720
 
-Already updated and tested with latest **STM32 core v2.0.0**
+Already updated and tested with latest **STM32 core v2.2.0**
 
 To use LAN8720 on some STM32 boards 
 
@@ -179,10 +166,10 @@ To use LAN8720 on some STM32 boards
 
 you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system) to overwrite the old files.
 
-Supposing the STM32 stm32 core version is 2.0.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.0.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.o.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
@@ -193,18 +180,43 @@ theses files must be copied into the corresponding directory:
 
 #### 2. For STM32 boards to use Serial1
 
-**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/1.9.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/1.9.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.2.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
 
-Supposing the STM32 stm32 core version is 1.9.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
-- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
 
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_F767ZI/variant.h`
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_L053R8/variant.h`
+
+---
+---
+
+### HOWTO Fix `Multiple Definitions` Linker Error
+
+The current library implementation, using `xyz-Impl.h` instead of standard `xyz.cpp`, possibly creates certain `Multiple Definitions` Linker error in certain use cases.
+
+You can include this `.hpp` file
+
+```
+// Can be included as many times as necessary, without `Multiple Definitions` Linker Error
+#include "FlashStorage_STM32.hpp"     //https://github.com/khoih-prog/FlashStorage_STM32
+```
+
+in many files. But be sure to use the following `.h` file **in just 1 `.h`, `.cpp` or `.ino` file**, which must **not be included in any other file**, to avoid `Multiple Definitions` Linker Error
+
+```
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "FlashStorage_STM32.h"           //https://github.com/khoih-prog/FlashStorage_STM32
+```
+
+Check the new [**multiFileProject** example](examples/multiFileProject) for a `HOWTO` demo.
+
+Have a look at the discussion in [Different behaviour using the src_cpp or src_h lib #80](https://github.com/khoih-prog/ESPAsync_WiFiManager/discussions/80)
 
 ---
 ---
@@ -250,6 +262,8 @@ The API is very similar to the well known Arduino EEPROM.h API but with 4 additi
  9. [EmulateEEPROM](examples/EmulateEEPROM)
 10. [FlashStoreAndRetrieve](examples/FlashStoreAndRetrieve)
 11. [StoreNameAndSurname](examples/StoreNameAndSurname)
+12. [**multiFileProject**](examples/multiFileProject) **New** 
+
 
 ---
 
@@ -298,6 +312,7 @@ and many more to libraries come.
 ```cpp
 // Demonstrate how to use FlashStorage_STM32 with an API that is similar to the EEPROM library to Store and retrieve structured data.
 
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include <FlashStorage_STM32.h>
 
 const int WRITTEN_SIGNATURE = 0xBEEFDEED;
@@ -396,8 +411,8 @@ The following is the sample terminal output when running example [Ethernet_STM32
 ```
 Start Ethernet_STM32_LAN8720 on BLACK_F407VE
 Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
-Ethernet_Manager_STM32 v1.3.0
-DoubleResetDetector_Generic v1.0.3
+Ethernet_Manager_STM32 v1.3.1
+DoubleResetDetector_Generic v1.7.3
 
 EEPROM size = 16384, start = 0
 Flag read = 0xd0d04321
@@ -445,8 +460,8 @@ HHHHH[ETM] h:Updating EEPROM. Please wait for reset
 ```
 Start Ethernet_STM32_LAN8720 on BLACK_F407VE
 Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
-Ethernet_Manager_STM32 v1.3.0
-DoubleResetDetector_Generic v1.0.3
+Ethernet_Manager_STM32 v1.3.1
+DoubleResetDetector_Generic v1.7.3
 
 EEPROM size = 16384, start = 0
 Flag read = 0xd0d04321
@@ -519,7 +534,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 ```
 Start StoreNameAndSurname on NUCLEO_H743ZI2
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
 EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
 Insert your name : My_Name
@@ -535,7 +550,7 @@ Insert your surname : My_Surname
 
 ```
 Start StoreNameAndSurname on NUCLEO_H743ZI2
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
 Hi My_Name
  My_Surname
@@ -554,7 +569,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 ```
 Start StoreNameAndSurname on NUCLEO_L552ZE_Q
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 2048
 EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
 Insert your name : My_Name
@@ -570,7 +585,7 @@ Insert your surname : My_Surname
 
 ```
 Start StoreNameAndSurname on NUCLEO_L552ZE_Q
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 2048
 Hi My_Name
  My_Surname
@@ -589,7 +604,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 ```
 Start StoreNameAndSurname on NUCLEO_F767ZI
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
 EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:
 Insert your name : My_Name
@@ -605,7 +620,7 @@ Insert your surname : My_Surname
 
 ```
 Start StoreNameAndSurname on NUCLEO_F767ZI
-FlashStorage_STM32 v1.1.0
+FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
 Hi My_Name
  My_Surname
@@ -646,42 +661,6 @@ Sometimes, the library will only work if you update the board core to the latest
 ---
 ---
 
-## Releases
-
-### Major Releases v1.1.0
-
-1. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
-2. Add support to new **STM32L5** and many new STM32F/L/H/G/WB/MP1 boards
-
-### Releases v1.0.1
-
-1. Fix compiler warnings.
-
-### Releases v1.0.0
-
-1. Initial release to support STM32F/L/H/G/WB/MP1 board with / without integrated EEPROM
-
-### Currently supported Boards
-
-1. **STM32F/L/H/G/WB/MP1 boards with / without integrated EEPROM**
-
-- Nucleo-144
-- Nucleo-64
-- Nucleo-32
-- Discovery
-- Generic STM32F0, STM32F1, STM32F2, STM32F3, STM32F4, STM32F7
-- STM32L0, STM32L1, STM32L4, **STM32L5**
-- STM32G0, STM32G4
-- STM32H7
-- STM32WB
-- STM32MP1
-- LoRa boards
-- 3-D printer boards
-- Generic Flight Controllers
-- Midatronics boards
-
----
----
 
 ### Issues
 
@@ -702,7 +681,9 @@ Submit issues to: [FlashStorage_STM32 issues](https://github.com/khoih-prog/Flas
 2. Add support to new [**STM32 core v1.9.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
 3. Similar features for remaining Arduino boards such as SAMD21, SAMD51, etc.
 4. Add Table of Contents
-5. Add support to new [**STM32 core v2.0.0**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0)
+5. Add support to new [**STM32 core v2.2.0+**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.2.0)
+6. Fix `multiple-definitions` linker error. 
+
 
 ---
 ---

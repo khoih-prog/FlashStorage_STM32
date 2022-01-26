@@ -10,13 +10,6 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/FlashStorage_STM32
   Licensed under MIT license
-  Version: 1.1.0
-
-  Version Modified By   Date        Comments
-  ------- -----------  ----------   -----------
-  1.0.0   K Hoang      26/01/2021  Initial coding to support STM32F/L/H/G/WB/MP1 using emulated-EEPROM
-  1.0.1   K Hoang      23/02/2021  Fix compiler warnings.
-  1.1.0   K Hoang      26/04/2021  Add support to new STM32 core v2.0.0 and new STM32L5 boards.
  ******************************************************************************************************************************************/
 /***
     eeprom_get example.
@@ -33,6 +26,7 @@
     Released under MIT licence.
 ***/
 
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include <FlashStorage_STM32.h>
 
 struct MyObject

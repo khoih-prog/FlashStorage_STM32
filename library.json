@@ -1,13 +1,31 @@
 {
     "name": "FlashStorage_STM32",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "keywords": "storage, data, flash, flashstorage, flash-storage, eeprom, emulated-eeprom, emulation, stm32, st32f, stm32l, stm32h, stm32g, stm32wb, stm32mp1,ST STM32, bluepill, blackpill, nucleo-144, nucleo",
     "description": "The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory of STM32F/L/H/G/WB/MP1. It's using the buffered read and write to minimize the access to Flash. It now supports writing and reading the whole object, not just byte-and-byte. New STM32 core v2.0.0 is supported now.",
-    "repository":
+    "authors": [
     {
-        "type": "git",
-        "url": "https://github.com/khoih-prog/FlashStorage_STM32"
-    },   
-    "frameworks": "arduino",
-    "platforms": ["ststm32", "stm32"]
+      "name":  "Khoi Hoang",
+      "url":   "https://github.com/khoih-prog",
+      "email": "khoih.prog@gmail.com",
+      "maintainer": true
+    }
+  ],
+  "repository":
+  {
+      "type": "git",
+      "url": "https://github.com/khoih-prog/FlashStorage_STM32"
+  },
+  "homepage": "https://github.com/khoih-prog/FlashStorage_STM32",
+  "export": {
+    "exclude": [
+      "linux",
+      "extras",
+      "tests"
+    ]
+  },
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": ["ststm32", "stm32"],
+  "headers": ["FlashStorage_STM32.h", "FlashStorage_STM32.hpp"]
 }
