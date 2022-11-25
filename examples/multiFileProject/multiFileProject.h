@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
   multiFileProject.h
-  
+
   For STM32 using Flash emulated-EEPROM
 
   The FlashStorage_STM32 library aims to provide a convenient way to store and retrieve user's data using the non-volatile flash memory

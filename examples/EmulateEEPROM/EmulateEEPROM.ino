@@ -22,11 +22,13 @@ const int WRITTEN_SIGNATURE = 0xBEEFDEED;
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EmulatedEEPROM on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EmulatedEEPROM on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -67,7 +69,8 @@ void setup()
   {
     EEPROM.get(0, signature);
 
-    Serial.print("EEPROM has been written.Signature = 0x"); Serial.println(signature, HEX);
+    Serial.print("EEPROM has been written.Signature = 0x");
+    Serial.println(signature, HEX);
 
     Serial.println("Here is the content of the next 16 bytes:");
 

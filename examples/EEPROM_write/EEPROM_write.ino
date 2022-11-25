@@ -14,7 +14,7 @@
 /*
    EEPROM Write
 
-   Stores values read from analog input 0 into the EEPROM. These values will stay in the EEPROM 
+   Stores values read from analog input 0 into the EEPROM. These values will stay in the EEPROM
    when the board is turned off and may be retrieved later by another sketch.
 */
 
@@ -27,11 +27,13 @@ int address = 0;
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_write on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_write on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -41,12 +43,12 @@ void setup()
 void loop()
 {
   unsigned long startMillis = millis();
-  
-  for (int i = 0 ; i < EEPROM.length() ; i++) 
+
+  for (int i = 0 ; i < EEPROM.length() ; i++)
   {
     /***
       The function EEPROM.update(address, val) is equivalent to the following:
-  
+
       if( EEPROM.read(address) != val )
       {
         EEPROM.write(address, val);
@@ -54,10 +56,11 @@ void loop()
     ***/
     EEPROM.write(i, (uint8_t) analogRead(0));
   }
-  
+
   EEPROM.commit();
 
-  Serial.print("Done writing emulated EEPROM. Time spent (ms) = "); Serial.println(millis() - startMillis);
+  Serial.print("Done writing emulated EEPROM. Time spent (ms) = ");
+  Serial.println(millis() - startMillis);
 
   delay(60000);
 }

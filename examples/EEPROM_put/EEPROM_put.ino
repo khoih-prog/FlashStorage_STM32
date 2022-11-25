@@ -37,11 +37,13 @@ struct MyObject
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_put on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_put on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");

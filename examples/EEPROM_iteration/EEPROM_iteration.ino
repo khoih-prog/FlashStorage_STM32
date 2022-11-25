@@ -28,11 +28,13 @@
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_iteration on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_iteration on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -42,7 +44,7 @@ void setup()
     Iterate the EEPROM using a for loop.
   ***/
 
-  for (int index = 0 ; index < EEPROM.length() ; index++) 
+  for (int index = 0 ; index < EEPROM.length() ; index++)
   {
     // Add one to each cell in the EEPROM
     EEPROM.write(index, EEPROM.read(index) + 1);
@@ -58,7 +60,7 @@ void setup()
 
   int index = 0;
 
-  while (index < EEPROM.length()) 
+  while (index < EEPROM.length())
   {
     //Add one to each cell in the EEPROM
     // Add one to each cell in the EEPROM
@@ -86,7 +88,7 @@ void setup()
   EEPROM.commit();
 
   Serial.println("Done do-while loop");
-  
+
 } //End of setup function.
 
 void loop() {}

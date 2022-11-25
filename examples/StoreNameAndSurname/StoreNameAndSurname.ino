@@ -31,11 +31,13 @@ typedef struct
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart StoreNameAndSurname on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart StoreNameAndSurname on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -56,7 +58,10 @@ void setup()
     EEPROM.get(storedAddress + sizeof(signature), owner);
 
     // Say hello to the returning user!
-    Serial.print("Hi "); Serial.print(owner.name); Serial.print(" "); Serial.print(owner.surname);
+    Serial.print("Hi ");
+    Serial.print(owner.name);
+    Serial.print(" ");
+    Serial.print(owner.surname);
     Serial.println(", nice to see you again :-)");
 
     Serial.println("Clearing WRITTEN_SIGNATURE for next try");
@@ -87,8 +92,10 @@ void setup()
     EEPROM.put(storedAddress + sizeof(signature), owner);
 
     // Print a confirmation of the data inserted.
-    Serial.print("<< Your name: "); Serial.print(owner.name);
-    Serial.print(". Your surname: "); Serial.print(owner.surname);
+    Serial.print("<< Your name: ");
+    Serial.print(owner.name);
+    Serial.print(". Your surname: ");
+    Serial.print(owner.surname);
     Serial.println(" >> have been saved. Thank you!");
   }
 }

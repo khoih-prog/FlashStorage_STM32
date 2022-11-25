@@ -33,11 +33,13 @@ int address = 0;
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_update on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_update on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   Serial.print("EEPROM length: ");
@@ -63,7 +65,8 @@ void loop()
 
   EEPROM.commit();
 
-  Serial.print("Done updating emulated EEPROM. Time spent (ms) = "); Serial.println(millis() - startMillis);
+  Serial.print("Done updating emulated EEPROM. Time spent (ms) = ");
+  Serial.println(millis() - startMillis);
 
   delay(60000);
 }

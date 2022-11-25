@@ -23,7 +23,7 @@
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include <FlashStorage_STM32.h>
 
-unsigned long eeprom_crc() 
+unsigned long eeprom_crc()
 {
   const unsigned long crc_table[16] =
   {
@@ -48,11 +48,13 @@ unsigned long eeprom_crc()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStart EEPROM_CRC on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStart EEPROM_CRC on "));
+  Serial.println(BOARD_NAME);
   Serial.println(FLASH_STORAGE_STM32_VERSION);
 
   //Print length of data to run CRC on.
@@ -65,7 +67,7 @@ void setup()
   Serial.print("Done!");
 }
 
-void loop() 
+void loop()
 {
   /* Empty loop */
 }
