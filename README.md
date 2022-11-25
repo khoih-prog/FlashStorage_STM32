@@ -6,7 +6,11 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/FlashStorage_STM32.svg)](http://github.com/khoih-prog/FlashStorage_STM32/issues)
 
-<a href="https://www.buymeacoffee.com/khoihprog6" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
+<a href="https://profile-counter.glitch.me/khoih-prog/count.svg" title="Total khoih-prog Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog/count.svg" style="height: 30px;width: 200px;"></a>
+<a href="https://profile-counter.glitch.me/khoih-prog-FlashStorage_STM32/count.svg" title="FlashStorage_STM32 Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog-FlashStorage_STM32/count.svg" style="height: 30px;width: 200px;"></a>
 
 ---
 ---
@@ -94,7 +98,7 @@ The FlashStorage_STM32 library, inspired by [Cristian Maglie's FlashStorage](htt
 
 The flash memory, generally used to store the firmware code, can also be used to store / retrieve more user's data and faster than from EEPROM. Thanks to the **buffered data writing and reading**, the flash access time is greatly reduced to **increase the life of the flash**.
 
-Currently, the library supports both new [**STM32 core v2.0.0+**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.2.0) and previous [**STM32 core v1.9.0-**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
+Currently, the library supports both new [**STM32 core v2.0.0+**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.0.0) and previous [**STM32 core v1.9.0-**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/1.9.0)
 
 ---
 
@@ -123,8 +127,9 @@ Currently, the library supports both new [**STM32 core v2.0.0+**](https://github
 ## Prerequisites
 
  1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
- 2. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
+ 2. [`Arduino Core for STM32 v2.3.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 
+---
 ---
 
 ## Installation
@@ -147,7 +152,7 @@ Another way to install is to:
 
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install [**FlashStorage_STM32** library](https://platformio.org/lib/show/11728/FlashStorage_STM32) by using [Library Manager](https://platformio.org/lib/show/11728/FlashStorage_STM32/installation). Search for **FlashStorage_STM32** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
+3. Install [**FlashStorage_STM32** library](https://registry.platformio.org/libraries/khoih-prog/FlashStorage_STM32) by using [Library Manager](https://registry.platformio.org/libraries/khoih-prog/FlashStorage_STM32/installation). Search for **FlashStorage_STM32** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
 
@@ -158,7 +163,9 @@ Another way to install is to:
 
 #### 1. For STM32 boards to use LAN8720
 
-Already updated and tested with latest **STM32 core v2.2.0**
+For `Generic STM32F4 series` boards, such as `STM32F407VE`, using `LAN8720`, please use STM32 core `v2.2.0` as breaking core `v2.3.0` creates the compile error.
+
+---
 
 To use LAN8720 on some STM32 boards 
 
@@ -166,7 +173,7 @@ To use LAN8720 on some STM32 boards
 - **Discovery (DISCO_F746NG)**
 - **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
 
-you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system) to overwrite the old files.
+you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system) to overwrite the old files.
 
 Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
 
@@ -182,12 +189,12 @@ these files must be copied into the corresponding directory:
 
 #### 2. For STM32 boards to use Serial1
 
-**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.2.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.3.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.3.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
 
-Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.3.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 these files must be copied into the corresponding directory:
@@ -204,14 +211,14 @@ The current library implementation, using `xyz-Impl.h` instead of standard `xyz.
 
 You can include this `.hpp` file
 
-```
+```cpp
 // Can be included as many times as necessary, without `Multiple Definitions` Linker Error
 #include "FlashStorage_STM32.hpp"     //https://github.com/khoih-prog/FlashStorage_STM32
 ```
 
 in many files. But be sure to use the following `.h` file **in just 1 `.h`, `.cpp` or `.ino` file**, which must **not be included in any other file**, to avoid `Multiple Definitions` Linker Error
 
-```
+```cpp
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include "FlashStorage_STM32.h"           //https://github.com/khoih-prog/FlashStorage_STM32
 ```
@@ -310,94 +317,7 @@ and many more to libraries come.
 
 ### Example [StoreNameAndSurname](examples/StoreNameAndSurname)
 
-
-```cpp
-// Demonstrate how to use FlashStorage_STM32 with an API that is similar to the EEPROM library to Store and retrieve structured data.
-
-// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include <FlashStorage_STM32.h>
-
-const int WRITTEN_SIGNATURE = 0xBEEFDEED;
-
-// Create a structure that is big enough to contain a name
-// and a surname. The "valid" variable is set to "true" once
-// the structure is filled with actual data for the first time.
-typedef struct
-{
-  char name[100];
-  char surname[100];
-} Person;
-
-void setup()
-{
-  Serial.begin(115200);
-  while (!Serial);
-
-  delay(200);
-
-  Serial.print(F("\nStart StoreNameAndSurname on ")); Serial.println(BOARD_NAME);
-  Serial.println(FLASH_STORAGE_STM32_VERSION);
-
-  Serial.print("EEPROM length: ");
-  Serial.println(EEPROM.length());
-
-  // Check signature at address 0
-  int signature;
-
-  // Create a "Person" variable and call it "owner"
-  uint16_t storedAddress = 0;
-  Person owner;
-
-  EEPROM.get(storedAddress, signature);
-
-  // If the EEPROM is empty then no WRITTEN_SIGNATURE
-  if (signature == WRITTEN_SIGNATURE)
-  {
-    EEPROM.get(storedAddress + sizeof(signature), owner);
-
-    // Say hello to the returning user!
-    Serial.print("Hi "); Serial.print(owner.name); Serial.print(" "); Serial.print(owner.surname);
-    Serial.println(", nice to see you again :-)");
-
-    Serial.println("Clearing WRITTEN_SIGNATURE for next try");
-
-    EEPROM.put(0, 0);
-    Serial.println("Done clearing signature in emulated EEPROM. You can reset now");
-  }
-  else
-  {
-    Serial.println("EEPROM is empty, writing WRITTEN_SIGNATURE and some example data:");
-
-    EEPROM.put(storedAddress, WRITTEN_SIGNATURE);
-
-    // ...in this case we ask for user data.
-    Serial.setTimeout(30000);
-    Serial.print("Insert your name : ");
-    String name = Serial.readStringUntil('\n');
-    Serial.println(name);
-    Serial.print("Insert your surname : ");
-    String surname = Serial.readStringUntil('\n');
-    Serial.println(surname);
-
-    // Fill the "owner" structure with the data entered by the user...
-    name.toCharArray(owner.name, 100);
-    surname.toCharArray(owner.surname, 100);
-
-    // ...and finally save everything into emulated-EEPROM
-    EEPROM.put(storedAddress + sizeof(signature), owner);
-
-    // Print a confirmation of the data inserted.
-    Serial.print("<< Your name: "); Serial.print(owner.name);
-    Serial.print(". Your surname: "); Serial.print(owner.surname);
-    Serial.println(" >> have been saved. Thank you!");
-  }
-}
-
-void loop()
-{
-  // Do nothing...
-}
-```
+https://github.com/khoih-prog/FlashStorage_STM32/blob/bb0dd71e4274283edc399a6ade83ae0fb9fdf1f1/examples/StoreNameAndSurname/StoreNameAndSurname.ino#L15-L106
 
 ---
 ---
@@ -410,11 +330,11 @@ The following is the sample terminal output when running example [Ethernet_STM32
 
 #### 1.1 DoubleReset Detected => Enter Config Portal
 
-```
+```cpp
 Start Ethernet_STM32_LAN8720 on BLACK_F407VE
 Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
-Ethernet_Manager_STM32 v1.3.1
-DoubleResetDetector_Generic v1.7.3
+Ethernet_Manager_STM32 v1.3.2
+DoubleResetDetector_Generic v1.8.1
 
 EEPROM size = 16384, start = 0
 Flag read = 0xd0d04321
@@ -455,15 +375,15 @@ HHHHH[ETM] h:Updating EEPROM. Please wait for reset
 #### 1.2 Config Data Saved => Running normally
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/FlashStorage_STM32/blob/main/pics/ConfigPortal.png">
+    <img src="https://github.com/khoih-prog/FlashStorage_STM32/raw/main/pics/ConfigPortal.png">
 </p>
 
 
-```
+```cpp
 Start Ethernet_STM32_LAN8720 on BLACK_F407VE
 Ethernet Shield type : LAN8720 Ethernet & STM32Ethernet Library
-Ethernet_Manager_STM32 v1.3.1
-DoubleResetDetector_Generic v1.7.3
+Ethernet_Manager_STM32 v1.3.2
+DoubleResetDetector_Generic v1.8.1
 
 EEPROM size = 16384, start = 0
 Flag read = 0xd0d04321
@@ -534,7 +454,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 #### 2.1 First Start
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_H743ZI2
 FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
@@ -550,7 +470,7 @@ Insert your surname : My_Surname
 
 #### 2.2 After reset
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_H743ZI2
 FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
@@ -569,7 +489,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 #### 3.1 First Start
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_L552ZE_Q
 FlashStorage_STM32 v1.2.0
 EEPROM length: 2048
@@ -585,7 +505,7 @@ Insert your surname : My_Surname
 
 #### 3.2 After reset
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_L552ZE_Q
 FlashStorage_STM32 v1.2.0
 EEPROM length: 2048
@@ -604,7 +524,7 @@ The following is the sample terminal output when running example [StoreNameAndSu
 
 #### 4.1 First Start
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_F767ZI
 FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
@@ -620,7 +540,7 @@ Insert your surname : My_Surname
 
 #### 4.2 After reset
 
-```
+```cpp
 Start StoreNameAndSurname on NUCLEO_F767ZI
 FlashStorage_STM32 v1.2.0
 EEPROM length: 16384
@@ -685,7 +605,7 @@ Submit issues to: [FlashStorage_STM32 issues](https://github.com/khoih-prog/Flas
 4. Add Table of Contents
 5. Add support to new [**STM32 core v2.2.0+**](https://github.com/stm32duino/Arduino_Core_STM32/releases/tag/2.2.0)
 6. Fix `multiple-definitions` linker error. 
-
+7. Add astyle using `allman` style. Restyle the library
 
 ---
 ---
@@ -722,5 +642,5 @@ If you want to contribute to this project:
 
 ### Copyright
 
-Copyright 2021- Khoi Hoang
+Copyright (c) 2021- Khoi Hoang
 
